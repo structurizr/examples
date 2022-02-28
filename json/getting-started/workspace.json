@@ -1,0 +1,122 @@
+{
+    "name": "Getting Started",
+    "description": "This is a model of my software system.",
+    "lastModifiedDate": "2022-02-28T16:16:10Z",
+    "configuration": {},
+    "model": {
+        "people": [
+            {
+                "id": "1",
+                "tags": "Element,Person",
+                "name": "User",
+                "description": "A user of my software system.",
+                "relationships": [
+                    {
+                        "id": "3",
+                        "tags": "Relationship",
+                        "sourceId": "1",
+                        "destinationId": "2",
+                        "description": "Uses",
+                        "defaultTags": [
+                            "Relationship"
+                        ]
+                    }
+                ],
+                "location": "Unspecified",
+                "defaultTags": [
+                    "Element",
+                    "Person"
+                ]
+            }
+        ],
+        "softwareSystems": [
+            {
+                "id": "2",
+                "tags": "Element,Software System",
+                "name": "Software System",
+                "description": "My software system.",
+                "location": "Unspecified",
+                "defaultTags": [
+                    "Element",
+                    "Software System"
+                ]
+            }
+        ],
+        "customElements": [],
+        "deploymentNodes": []
+    },
+    "documentation": {
+        "sections": [],
+        "decisions": [],
+        "images": []
+    },
+    "views": {
+        "systemContextViews": [
+            {
+                "softwareSystemId": "2",
+                "description": "An example of a System Context diagram.",
+                "key": "SystemContext",
+                "automaticLayout": {
+                    "implementation": "Graphviz",
+                    "rankDirection": "TopBottom",
+                    "rankSeparation": 300,
+                    "nodeSeparation": 300,
+                    "edgeSeparation": 0,
+                    "vertices": false
+                },
+                "enterpriseBoundaryVisible": true,
+                "elements": [
+                    {
+                        "id": "1",
+                        "x": 232,
+                        "y": 207
+                    },
+                    {
+                        "id": "2",
+                        "x": 207,
+                        "y": 907
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "3"
+                    }
+                ],
+                "animations": [],
+                "paperSize": "A6_Portrait",
+                "dimensions": {
+                    "width": 866,
+                    "height": 1416
+                }
+            }
+        ],
+        "configuration": {
+            "branding": {},
+            "styles": {
+                "elements": [
+                    {
+                        "tag": "Software System",
+                        "background": "#1168bd",
+                        "color": "#ffffff"
+                    },
+                    {
+                        "tag": "Person",
+                        "background": "#08427b",
+                        "color": "#ffffff",
+                        "shape": "Person"
+                    }
+                ],
+                "relationships": []
+            },
+            "terminology": {},
+            "themes": []
+        },
+        "customViews": [],
+        "systemLandscapeViews": [],
+        "containerViews": [],
+        "componentViews": [],
+        "dynamicViews": [],
+        "deploymentViews": [],
+        "filteredViews": []
+    }
+}
