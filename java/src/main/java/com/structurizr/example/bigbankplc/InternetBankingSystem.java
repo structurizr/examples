@@ -1,8 +1,8 @@
 package com.structurizr.example.bigbankplc;
 
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.AdrToolsImporter;
-import com.structurizr.documentation.AutomaticDocumentationTemplate;
+import com.structurizr.documentation.importer.AdrToolsDecisionImporter;
+import com.structurizr.documentation.importer.DefaultDocumentationImporter;
 import com.structurizr.model.*;
 import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
@@ -203,12 +203,13 @@ public final class InternetBankingSystem extends BigBankPlc {
         styles.addRelationshipStyle(FAILOVER_TAG).opacity(25).position(70);
 
         // documentation
-        AutomaticDocumentationTemplate template = new AutomaticDocumentationTemplate(workspace);
-        template.addSections(internetBankingSystem, new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/docs"));
+        File documentationRoot = new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/docs");
+        DefaultDocumentationImporter documentationImporter = new DefaultDocumentationImporter();
+        documentationImporter.importDocumentation(internetBankingSystem, documentationRoot);
 
         // ADRs
-        AdrToolsImporter adrToolsImporter = new AdrToolsImporter(workspace, new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/adrs"));
-        adrToolsImporter.importArchitectureDecisionRecords(internetBankingSystem);
+        AdrToolsDecisionImporter decisionImporter = new AdrToolsDecisionImporter();
+        decisionImporter.importDocumentation(internetBankingSystem, new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/adrs"));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

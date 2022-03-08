@@ -2,7 +2,8 @@ package com.structurizr.example.financialrisksystem;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.AutomaticDocumentationTemplate;
+import com.structurizr.documentation.importer.DefaultDocumentationImporter;
+import com.structurizr.documentation.importer.DefaultImageImporter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -17,8 +18,8 @@ import java.io.File;
 public class FinancialRiskSystem {
 
     private static final long WORKSPACE_ID = 31;
-    private static final String API_KEY = "";
-    private static final String API_SECRET = "";
+    private static final String API_KEY = "key";
+    private static final String API_SECRET = "secret";
 
     private static final String TAG_ALERT = "Alert";
 
@@ -75,13 +76,17 @@ public class FinancialRiskSystem {
         styles.addElementStyle("Future State").opacity(30).border(Border.Dashed);
         styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
-        AutomaticDocumentationTemplate template = new AutomaticDocumentationTemplate(workspace);
-        File documentationRoot = new File("./src/main/java/com/structurizr/example/financialrisksystem");
-        template.addSections(documentationRoot);
-        template.addImages(documentationRoot);
+        // documentation
+        File documentationRoot = new File("./src/main/java/com/structurizr/example/financialrisksystem/docs");
+        DefaultDocumentationImporter documentationImporter = new DefaultDocumentationImporter();
+        documentationImporter.importDocumentation(financialRiskSystem, documentationRoot);
 
-//        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
-//        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
+        // images
+        DefaultImageImporter imageImporter = new DefaultImageImporter();
+        imageImporter.importDocumentation(financialRiskSystem, documentationRoot);
+
+        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
 }

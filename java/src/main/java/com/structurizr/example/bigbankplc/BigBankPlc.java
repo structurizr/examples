@@ -1,12 +1,10 @@
 package com.structurizr.example.bigbankplc;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.*;
-import com.structurizr.util.MapUtils;
-import com.structurizr.view.*;
+import com.structurizr.view.Shape;
+import com.structurizr.view.Styles;
+import com.structurizr.view.ViewSet;
 
 /**
  * This is an example workspace to illustrate the key features of Structurizr, based around a fictional bank.
