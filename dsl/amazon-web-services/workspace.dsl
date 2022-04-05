@@ -17,10 +17,12 @@ workspace "Amazon Web Services Example" "An example AWS deployment architecture.
                     tags "Amazon Web Services - Region"
 
                     route53 = infrastructureNode "Route 53" {
+                        description "Highly available and scalable cloud DNS service."
                         tags "Amazon Web Services - Route 53"
                     }
 
                     elb = infrastructureNode "Elastic Load Balancer" {
+                        description "Automatically distributes incoming application traffic."
                         tags "Amazon Web Services - Elastic Load Balancing"
                     }
 
