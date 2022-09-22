@@ -1,9 +1,13 @@
 workspace "Amazon Web Services Example" "An example AWS deployment architecture." {
 
     model {
-        springPetClinic = softwaresystem "Spring PetClinic" "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets." "Spring Boot Application" {
-            webApplication = container "Web Application" "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets." "Java and Spring Boot"
-            database = container "Database" "Stores information regarding the veterinarians, the clients, and their pets." "Relational database schema" "Database"
+        springPetClinic = softwaresystem "Spring PetClinic" "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets." {
+            webApplication = container "Web Application" "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets." "Java and Spring Boot" {
+                tags "Application"
+            }
+            database = container "Database" "Stores information regarding the veterinarians, the clients, and their pets." "Relational database schema" {
+                tags "Database"
+            }
         }
 
         webApplication -> database "Reads from and writes to" "MySQL Protocol/SSL"
@@ -70,6 +74,12 @@ workspace "Amazon Web Services Example" "An example AWS deployment architecture.
         styles {
             element "Element" {
                 shape roundedbox
+                background #ffffff
+            }
+            element "Container" {
+                background #ffffff
+            }
+            element "Application" {
                 background #ffffff
             }
             element "Database" {
