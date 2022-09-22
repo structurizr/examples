@@ -75,9 +75,6 @@ workspace "Amazon Web Services Example" "An example AWS deployment architecture.
             element "Database" {
                 shape cylinder
             }
-            element "Infrastructure Node" {
-                shape roundedbox
-            }
         }
 
         themes https://static.structurizr.com/themes/amazon-web-services-2020.04.30/theme.json
