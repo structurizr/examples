@@ -18,9 +18,6 @@ workspace extends ../model.dsl {
                 emailComponent = component "E-mail Component" "Sends e-mails to users." "Spring Bean"
             }
             database = container "Database" "Stores user registration information, hashed authentication credentials, access logs, etc." "Oracle Database Schema" "Database"
-
-            !docs docs
-            !adrs adrs
         }
 
         # relationships to/from containers
