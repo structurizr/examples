@@ -2,7 +2,7 @@ package com.structurizr.example.adrtools;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.importer.AdrToolsDecisionImporter;
+import com.structurizr.importer.documentation.AdrToolsDecisionImporter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 

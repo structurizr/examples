@@ -1,9 +1,8 @@
 package com.structurizr.example.bigbankplc;
 
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.importer.AdrToolsDecisionImporter;
-import com.structurizr.documentation.importer.DefaultDocumentationImporter;
 import com.structurizr.model.*;
+import com.structurizr.util.ImageUtils;
 import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
 
@@ -121,12 +120,24 @@ public final class InternetBankingSystem extends BigBankPlc {
         systemContextView.addNearestNeighbours(internetBankingSystem);
         systemContextView.setPaperSize(PaperSize.A5_Landscape);
 
+        systemContextView.addAnimation(internetBankingSystem);
+        systemContextView.addAnimation(customer);
+        systemContextView.addAnimation(mainframeBankingSystem);
+        systemContextView.addAnimation(emailSystem);
+
         ContainerView containerView = views.createContainerView(internetBankingSystem, "Containers", "The container diagram for the Internet Banking System.");
         containerView.add(customer);
         containerView.addAllContainers();
         containerView.add(mainframeBankingSystem);
         containerView.add(emailSystem);
         containerView.setPaperSize(PaperSize.A5_Landscape);
+
+        containerView.addAnimation(customer, mainframeBankingSystem, emailSystem);
+        containerView.addAnimation(webApplication);
+        containerView.addAnimation(singlePageApplication);
+        containerView.addAnimation(mobileApp);
+        containerView.addAnimation(apiApplication);
+        containerView.addAnimation(database);
 
         ComponentView componentView = views.createComponentView(apiApplication, "Components", "The component diagram for the API Application.");
         componentView.add(mobileApp);
@@ -137,22 +148,14 @@ public final class InternetBankingSystem extends BigBankPlc {
         componentView.add(emailSystem);
         componentView.setPaperSize(PaperSize.A5_Landscape);
 
-        systemContextView.addAnimation(internetBankingSystem);
-        systemContextView.addAnimation(customer);
-        systemContextView.addAnimation(mainframeBankingSystem);
-        systemContextView.addAnimation(emailSystem);
-
-        containerView.addAnimation(customer, mainframeBankingSystem, emailSystem);
-        containerView.addAnimation(webApplication);
-        containerView.addAnimation(singlePageApplication);
-        containerView.addAnimation(mobileApp);
-        containerView.addAnimation(apiApplication);
-        containerView.addAnimation(database);
-
         componentView.addAnimation(singlePageApplication, mobileApp, database, emailSystem, mainframeBankingSystem);
         componentView.addAnimation(signinController, securityComponent);
         componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade);
         componentView.addAnimation(resetPasswordController, emailComponent);
+
+        ImageView imageView = views.createImageView(mainframeBankingSystemFacade, "MainframeBankingSystemFacade");
+        imageView.setContent(ImageUtils.getImageAsDataUri(new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/images/mainframe-banking-system-facade.png")));
+        imageView.setTitle("Class diagram for the Mainframe Banking System Facade component");
 
         // dynamic diagrams and deployment diagrams are not available with the Free Plan
         DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
@@ -201,15 +204,6 @@ public final class InternetBankingSystem extends BigBankPlc {
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
         styles.addElementStyle(FAILOVER_TAG).opacity(25);
         styles.addRelationshipStyle(FAILOVER_TAG).opacity(25).position(70);
-
-        // documentation
-        File documentationRoot = new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/docs");
-        DefaultDocumentationImporter documentationImporter = new DefaultDocumentationImporter();
-        documentationImporter.importDocumentation(internetBankingSystem, documentationRoot);
-
-        // ADRs
-        AdrToolsDecisionImporter decisionImporter = new AdrToolsDecisionImporter();
-        decisionImporter.importDocumentation(internetBankingSystem, new File("./src/main/java/com/structurizr/example/bigbankplc/internetbankingsystem/adrs"));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

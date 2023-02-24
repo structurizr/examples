@@ -139,6 +139,11 @@ workspace extends ../model.dsl {
             }
         }
 
+        image mainframeBankingSystemFacade "MainframeBankingSystemFacade" {
+            image mainframe-banking-system-facade.png
+            title "Class diagram for the Mainframe Banking System Facade component"
+        }
+
         dynamic apiApplication "SignIn" "Summarises how the sign in feature works in the single-page application." {
             singlePageApplication -> signinController "Submits credentials to"
             signinController -> securityComponent "Validates credentials using"

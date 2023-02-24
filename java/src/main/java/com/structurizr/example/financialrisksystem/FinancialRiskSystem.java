@@ -2,8 +2,8 @@ package com.structurizr.example.financialrisksystem;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.importer.DefaultDocumentationImporter;
-import com.structurizr.documentation.importer.DefaultImageImporter;
+import com.structurizr.importer.documentation.DefaultDocumentationImporter;
+import com.structurizr.importer.documentation.DefaultImageImporter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
