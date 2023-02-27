@@ -61,7 +61,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
         accountsSummaryController -> mainframeBankingSystemFacade "Uses"
         resetPasswordController -> securityComponent "Uses"
         resetPasswordController -> emailComponent "Uses"
-        securityComponent -> database "Reads from and writes to" "JDBC"
+        securityComponent -> database "Reads from and writes to" "SQL/TCP"
         mainframeBankingSystemFacade -> mainframe "Makes API calls to" "XML/HTTPS"
         emailComponent -> email "Sends e-mail using"
 

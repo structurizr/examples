@@ -43,7 +43,7 @@ public final class InternetBankingSystem extends BigBankPlc {
         customer.uses(singlePageApplication, "Views account balances, and makes payments using", "");
         customer.uses(mobileApp, "Views account balances, and makes payments using", "");
         webApplication.uses(singlePageApplication, "Delivers to the customer's web browser", "");
-        apiApplication.uses(database, "Reads from and writes to", "JDBC");
+        apiApplication.uses(database, "Reads from and writes to", "SQL/TCP");
         apiApplication.uses(mainframeBankingSystem, "Makes API calls to", "XML/HTTPS");
         apiApplication.uses(emailSystem, "Sends e-mail using", "SMTP");
 
@@ -63,7 +63,7 @@ public final class InternetBankingSystem extends BigBankPlc {
         accountsSummaryController.uses(mainframeBankingSystemFacade, "Uses");
         resetPasswordController.uses(securityComponent, "Uses");
         resetPasswordController.uses(emailComponent, "Uses");
-        securityComponent.uses(database, "Reads from and writes to", "JDBC");
+        securityComponent.uses(database, "Reads from and writes to", "SQL/TCP");
         mainframeBankingSystemFacade.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
         emailComponent.uses(emailSystem, "Sends e-mail using");
 
