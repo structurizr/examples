@@ -174,6 +174,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
 
         image mainframeBankingSystemFacade "MainframeBankingSystemFacade" {
             image https://raw.githubusercontent.com/structurizr/examples/main/dsl/big-bank-plc/internet-banking-system/mainframe-banking-system-facade.png
+            title "[Code] Mainframe Banking System Facade"
         }
 
         dynamic apiApplication "SignIn" "Summarises how the sign in feature works in the single-page application." {
