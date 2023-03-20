@@ -172,6 +172,10 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
             autoLayout
         }
 
+        image mainframeBankingSystemFacade "MainframeBankingSystemFacade" {
+            image https://raw.githubusercontent.com/structurizr/examples/main/dsl/big-bank-plc/internet-banking-system/mainframe-banking-system-facade.png
+        }
+
         dynamic apiApplication "SignIn" "Summarises how the sign in feature works in the single-page application." {
             singlePageApplication -> signinController "Submits credentials to"
             signinController -> securityComponent "Validates credentials using"
