@@ -9,7 +9,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
     model {
         customer = person "Personal Banking Customer" "A customer of the bank, with personal bank accounts." "Customer"
 
-        enterprise "Big Bank plc" {
+        group "Big Bank plc" {
             supportStaff = person "Customer Service Staff" "Customer service staff within the bank." "Bank Staff"
             backoffice = person "Back Office Staff" "Administration and support staff within the bank." "Bank Staff"
 
@@ -146,6 +146,10 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
                 email
             }
             autoLayout
+            description "The system context diagram for the Internet Banking System."
+            properties {
+                structurizr.groups false
+            }
         }
 
         container internetBankingSystem "Containers" {
@@ -159,6 +163,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
                 database
             }
             autoLayout
+            description "The container diagram for the Internet Banking System."
         }
 
         component apiApplication "Components" {
@@ -170,6 +175,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
                 resetPasswordController emailComponent
             }
             autoLayout
+            description "The component diagram for the API Application."
         }
 
         image mainframeBankingSystemFacade "MainframeBankingSystemFacade" {
@@ -185,6 +191,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
             securityComponent -> signinController "Returns true if the hashed password matches"
             signinController -> singlePageApplication "Sends back an authentication token to"
             autoLayout
+            description "Summarises how the sign in feature works in the single-page application."
         }
 
         deployment internetBankingSystem "Development" "DevelopmentDeployment" {
@@ -195,6 +202,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
                 developerDatabaseInstance
             }
             autoLayout
+            description "An example development deployment scenario for the Internet Banking System."
         }
 
         deployment internetBankingSystem "Live" "LiveDeployment" {
@@ -207,6 +215,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
                 liveSecondaryDatabaseInstance
             }
             autoLayout
+            description "An example live deployment scenario for the Internet Banking System."
         }
 
         styles {
