@@ -115,6 +115,11 @@ workspace extends ../model.dsl {
                 mainframe
                 email
             }
+
+            description "The system context diagram for the Internet Banking System."
+            properties {
+                structurizr.groups false
+            }
         }
 
         container internetBankingSystem "Containers" {
@@ -127,6 +132,8 @@ workspace extends ../model.dsl {
                 apiApplication
                 database
             }
+
+            description "The container diagram for the Internet Banking System."
         }
 
         component apiApplication "Components" {
@@ -137,6 +144,8 @@ workspace extends ../model.dsl {
                 accountsSummaryController mainframeBankingSystemFacade
                 resetPasswordController emailComponent
             }
+
+            description "The component diagram for the API Application."
         }
 
         image mainframeBankingSystemFacade "MainframeBankingSystemFacade" {
@@ -144,13 +153,15 @@ workspace extends ../model.dsl {
             title "Class diagram for the Mainframe Banking System Facade component"
         }
 
-        dynamic apiApplication "SignIn" "Summarises how the sign in feature works in the single-page application." {
+        dynamic apiApplication "SignIn" {
             singlePageApplication -> signinController "Submits credentials to"
             signinController -> securityComponent "Validates credentials using"
             securityComponent -> database "select * from users where username = ?"
             database -> securityComponent "Returns user data to"
             securityComponent -> signinController "Returns true if the hashed password matches"
             signinController -> singlePageApplication "Sends back an authentication token to"
+
+            description "Summarises how the sign in feature works in the single-page application."
         }
 
         deployment internetBankingSystem "Development" "DevelopmentDeployment" {
@@ -160,6 +171,8 @@ workspace extends ../model.dsl {
                 developerWebApplicationInstance developerApiApplicationInstance
                 developerDatabaseInstance
             }
+
+            description "An example development deployment scenario for the Internet Banking System."
         }
 
         deployment internetBankingSystem "Live" "LiveDeployment" {
@@ -171,6 +184,8 @@ workspace extends ../model.dsl {
                 livePrimaryDatabaseInstance
                 liveSecondaryDatabaseInstance
             }
+
+            description "An example live deployment scenario for the Internet Banking System."
         }
 
         styles {
