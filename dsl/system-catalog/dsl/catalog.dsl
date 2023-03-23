@@ -1,4 +1,3 @@
-// this is the catalog of software systems and people
 workspace {
 
     !identifiers hierarchical
