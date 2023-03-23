@@ -2,3 +2,9 @@ java/.gradle
 java/.idea
 java/build
 java/out
+
+**/.structurizr
+**/.idea
+**/.gradle
+**/build
+dsl/**/*.json
