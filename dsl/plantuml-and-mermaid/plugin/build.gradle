@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation 'com.structurizr:structurizr-dsl:1.30.2'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
 test {
