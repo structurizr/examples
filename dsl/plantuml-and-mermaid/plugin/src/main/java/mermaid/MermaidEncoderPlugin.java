@@ -1,12 +1,14 @@
 package mermaid;
 
 import com.structurizr.Workspace;
-import com.structurizr.documentation.Decision;
-import com.structurizr.documentation.Format;
-import com.structurizr.documentation.Section;
+import com.structurizr.documentation.*;
 import com.structurizr.dsl.StructurizrDslPlugin;
 import com.structurizr.dsl.StructurizrDslPluginContext;
+import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MermaidEncoderPlugin implements StructurizrDslPlugin {
 
@@ -19,32 +21,30 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
     public void run(StructurizrDslPluginContext context) {
         try {
             Workspace workspace = context.getWorkspace();
-            for (Section section : workspace.getDocumentation().getSections()) {
-                section.setContent(encodeMermaid(context, section.getContent(), section.getFormat()));
-            }
 
-            for (SoftwareSystem softwareSystem : workspace.getModel().getSoftwareSystems()) {
-                for (Section section : softwareSystem.getDocumentation().getSections()) {
-                    section.setContent(encodeMermaid(context, section.getContent(), section.getFormat()));
-                }
-            }
-
-            for (Decision decision : workspace.getDocumentation().getDecisions()) {
-                decision.setContent(encodeMermaid(context, decision.getContent(), decision.getFormat()));
-            }
-
-            for (SoftwareSystem softwareSystem : workspace.getModel().getSoftwareSystems()) {
-                for (Decision decision : softwareSystem.getDocumentation().getDecisions()) {
-                    decision.setContent(encodeMermaid(context, decision.getContent(), decision.getFormat()));
-                }
-            }
+            Set<Documentable> documentables = workspace.getModel().getElements().stream().filter(e -> e instanceof Documentable).map(e -> (Documentable)e).collect(Collectors.toSet());
+            documentables.add(workspace);
+            documentables.forEach(e -> encodeMermaid(context, e));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String encodeMermaid(StructurizrDslPluginContext context, String content, Format format) throws Exception {
+    private void encodeMermaid(StructurizrDslPluginContext context, Documentable documentable) {
+        for (Section section : documentable.getDocumentation().getSections()) {
+            section.setContent(encodeMermaid(context, section));
+        }
+
+        for (Decision decision : documentable.getDocumentation().getDecisions()) {
+            decision.setContent(encodeMermaid(context, decision));
+        }
+    }
+
+    private String encodeMermaid(StructurizrDslPluginContext context, DocumentationContent documentationContent) {
         String url = context.getParameter("mermaid.url", "https://mermaid.ink");
+
+        String content = documentationContent.getContent();
+        Format format = documentationContent.getFormat();
 
         StringBuilder buf = new StringBuilder();
         String[] lines = content.split("\\r?\\n");

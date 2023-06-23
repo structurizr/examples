@@ -1,12 +1,12 @@
 package plantuml;
 
 import com.structurizr.Workspace;
-import com.structurizr.documentation.Decision;
-import com.structurizr.documentation.Format;
-import com.structurizr.documentation.Section;
+import com.structurizr.documentation.*;
 import com.structurizr.dsl.StructurizrDslPlugin;
 import com.structurizr.dsl.StructurizrDslPluginContext;
-import com.structurizr.model.SoftwareSystem;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class PlantUMLEncoderPlugin implements StructurizrDslPlugin {
 
@@ -19,32 +19,30 @@ public class PlantUMLEncoderPlugin implements StructurizrDslPlugin {
     public void run(StructurizrDslPluginContext context) {
         try {
             Workspace workspace = context.getWorkspace();
-            for (Section section : workspace.getDocumentation().getSections()) {
-                section.setContent(encodePlantUML(context, section.getContent(), section.getFormat()));
-            }
 
-            for (SoftwareSystem softwareSystem : workspace.getModel().getSoftwareSystems()) {
-                for (Section section : softwareSystem.getDocumentation().getSections()) {
-                    section.setContent(encodePlantUML(context, section.getContent(), section.getFormat()));
-                }
-            }
-
-            for (Decision decision : workspace.getDocumentation().getDecisions()) {
-                decision.setContent(encodePlantUML(context, decision.getContent(), decision.getFormat()));
-            }
-
-            for (SoftwareSystem softwareSystem : workspace.getModel().getSoftwareSystems()) {
-                for (Decision decision : softwareSystem.getDocumentation().getDecisions()) {
-                    decision.setContent(encodePlantUML(context, decision.getContent(), decision.getFormat()));
-                }
-            }
+            Set<Documentable> documentables = workspace.getModel().getElements().stream().filter(e -> e instanceof Documentable).map(e -> (Documentable)e).collect(Collectors.toSet());
+            documentables.add(workspace);
+            documentables.forEach(e -> encodePlantUML(context, e));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String encodePlantUML(StructurizrDslPluginContext context, String content, Format format) throws Exception {
+    private void encodePlantUML(StructurizrDslPluginContext context, Documentable documentable) {
+        for (Section section : documentable.getDocumentation().getSections()) {
+            section.setContent(encodePlantUML(context, section));
+        }
+
+        for (Decision decision : documentable.getDocumentation().getDecisions()) {
+            decision.setContent(encodePlantUML(context, decision));
+        }
+    }
+
+    private String encodePlantUML(StructurizrDslPluginContext context, DocumentationContent documentationContent) {
         String url = context.getParameter("plantuml.url", "https://www.plantuml.com/plantuml");
+
+        String content = documentationContent.getContent();
+        Format format = documentationContent.getFormat();
 
         StringBuilder buf = new StringBuilder();
         String[] lines = content.split("\\r?\\n");
@@ -55,7 +53,13 @@ public class PlantUMLEncoderPlugin implements StructurizrDslPlugin {
             if (line.equals("```plantuml")) {
                 rawPlantUML = new StringBuilder();
             } else if (rawPlantUML != null && line.equals("```")) {
-                String encodedPlantUML = new PlantUMLEncoder().encode(rawPlantUML.toString());
+                String encodedPlantUML = rawPlantUML.toString();
+
+                try {
+                    encodedPlantUML = new PlantUMLEncoder().encode(rawPlantUML.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 if (format == Format.AsciiDoc) {
                     buf.append(String.format(ASCIIDOC_IMAGE_TEMPLATE, url, PLANTUML_FORMAT, encodedPlantUML));
