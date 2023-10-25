@@ -56,28 +56,33 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
         while (iterator.hasNext()) {
             String line = iterator.next().trim();
             if (line.equals("```mermaid")) {
-                rawMermaid = new StringBuilder();
-            } else if (rawMermaid != null && line.equals("```")) {
-                String encodedMermaid = new MermaidEncoder().encode(rawMermaid.toString());
-
-                if (format == Format.AsciiDoc) {
-                    buf.append(String.format(ASCIIDOC_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid));
-                } else {
-                    buf.append(String.format(MARKDOWN_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid));
-                }
-
-                buf.append(System.lineSeparator());
-                rawMermaid = null;
-            } else if (rawMermaid != null) {
-                rawMermaid.append(line);
-                rawMermaid.append(System.lineSeparator());
-            } else {
-                buf.append(line);
-                buf.append(System.lineSeparator());
-            }
+                line = getDiagramFromMDSyntax(iterator, format, url);
+            } 
+            buf.append(line);
+            buf.append(System.lineSeparator());
         }
 
         return buf.toString();
+    }
+
+    private String getDiagramFromMDSyntax(Iterator<String> iterator, Format format, String url)
+    {
+        StringBuilder rawMermaid = new StringBuilder();
+        while (iterator.hasNext()) {
+            String line = iterator.next().trim();
+            if (line.equals("```")) {
+                break;
+            } else {
+                rawMermaid.append(line);
+                rawMermaid.append(System.lineSeparator());
+            }
+        }
+        String encodedMermaid = new MermaidEncoder().encode(rawMermaid.toString());
+
+        if (format == Format.AsciiDoc) {
+            return String.format(ASCIIDOC_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
+        }
+        return String.format(MARKDOWN_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
     }
 
 }
