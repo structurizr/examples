@@ -41,11 +41,11 @@ public class MermaidEncoderPluginTests {
 
         assertEquals("## Context\n" +
                 "\n" +
-                "![](https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuU3RhcnQgLS0+IFN0b3BcbiIsICJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsICJzZWN1cml0eUxldmVsIjogImxvb3NlIn19)\n", markdown.getContent());
+                "![](https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==)\n", markdown.getContent());
 
         assertEquals("== Context\n" +
                 "\n" +
-                "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuU3RhcnQgLS0+IFN0b3BcbiIsICJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsICJzZWN1cml0eUxldmVsIjogImxvb3NlIn19[]\n", asciidoc.getContent());
+                "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==[]\n", asciidoc.getContent());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MermaidEncoderPluginTests {
 
        assertEquals("== Context\n" +
                "\n" +
-               "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuU3RhcnQgLS0+IFN0b3BcbiIsICJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsICJzZWN1cml0eUxldmVsIjogImxvb3NlIn19[]\n", asciidoc.getContent());
+               "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==[]\n", asciidoc.getContent());
    }
 
    @Test
@@ -89,6 +89,6 @@ public class MermaidEncoderPluginTests {
 
        assertEquals("== Context\n" +
                "\n" +
-               "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuU3RhcnQgLS0+IFN0b3BcbiIsICJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsICJzZWN1cml0eUxldmVsIjogImxvb3NlIn19[]\n", asciidoc.getContent());
+               "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==[]\n", asciidoc.getContent());
    }
 }
