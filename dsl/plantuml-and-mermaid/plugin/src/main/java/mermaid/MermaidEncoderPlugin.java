@@ -54,11 +54,11 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
         Boolean digramStarts = false;
         Iterator<String> iterator = Arrays.asList(lines).iterator();
         while (iterator.hasNext()) {
-            String line = iterator.next().trim();
-            if (line.equals("```mermaid")) {
+            String line = iterator.next();
+            if (line.trim().equals("```mermaid")) {
                 line = getDiagramFromMDSyntax(iterator, format, url);
             }
-            if (line.startsWith("[mermaid") && line.endsWith("]")) {
+            if (line.trim().startsWith("[mermaid") && line.endsWith("]")) {
                 line = getDiagramFromAdocSyntax(line, iterator, format, url);
             }
             buf.append(line);
@@ -71,12 +71,12 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
     {
         StringBuilder rawMermaid = new StringBuilder();
         String line = iterator.next();
-        if (!line.equals("....")) {
+        if (!line.trim().equals("....")) {
             return startLine + line;
         }
         while (iterator.hasNext()) {
-            line = iterator.next().trim();
-            if (line.equals("....")) {
+            line = iterator.next();
+            if (line.trim().equals("....")) {
                 break;
             } else {
                 rawMermaid.append(line);
@@ -95,8 +95,8 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
     {
         StringBuilder rawMermaid = new StringBuilder();
         while (iterator.hasNext()) {
-            String line = iterator.next().trim();
-            if (line.equals("```")) {
+            String line = iterator.next();
+            if (line.trim().equals("```")) {
                 break;
             } else {
                 rawMermaid.append(line);
