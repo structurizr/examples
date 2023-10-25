@@ -7,6 +7,8 @@ import com.structurizr.dsl.StructurizrDslPluginContext;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,9 +51,10 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
         StringBuilder buf = new StringBuilder();
         String[] lines = content.split("\\r?\\n");
         StringBuilder rawMermaid = null;
-        for (String line : lines) {
-            line = line.trim();
-
+        Boolean digramStarts = false;
+        Iterator<String> iterator = Arrays.asList(lines).iterator();
+        while (iterator.hasNext()) {
+            String line = iterator.next().trim();
             if (line.equals("```mermaid")) {
                 rawMermaid = new StringBuilder();
             } else if (rawMermaid != null && line.equals("```")) {
