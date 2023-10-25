@@ -57,12 +57,38 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
             String line = iterator.next().trim();
             if (line.equals("```mermaid")) {
                 line = getDiagramFromMDSyntax(iterator, format, url);
-            } 
+            }
+            if (line.startsWith("[mermaid") && line.endsWith("]")) {
+                line = getDiagramFromAdocSyntax(line, iterator, format, url);
+            }
             buf.append(line);
             buf.append(System.lineSeparator());
         }
-
         return buf.toString();
+    }
+
+    private String getDiagramFromAdocSyntax(String startLine, Iterator<String> iterator, Format format, String url)
+    {
+        StringBuilder rawMermaid = new StringBuilder();
+        String line = iterator.next();
+        if (!line.equals("....")) {
+            return startLine + '\n' + line;
+        }
+        while (iterator.hasNext()) {
+            line = iterator.next().trim();
+            if (line.equals("....")) {
+                break;
+            } else {
+                rawMermaid.append(line);
+                rawMermaid.append(System.lineSeparator());
+            }
+        }
+        String encodedMermaid = new MermaidEncoder().encode(rawMermaid.toString());
+
+        if (format == Format.AsciiDoc) {
+            return String.format(ASCIIDOC_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
+        }
+        return String.format(MARKDOWN_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
     }
 
     private String getDiagramFromMDSyntax(Iterator<String> iterator, Format format, String url)
