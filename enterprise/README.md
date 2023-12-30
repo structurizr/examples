@@ -7,7 +7,7 @@ In this example there are 3 software system scoped workspaces, each defined usin
 which are perhaps owned and maintained by 3 separate teams:
 
 - [customer service](src/main/dsl/customer-service/workspace.dsl)
-- [invoice service](/src/main/dsl/invoice-service/workspace.dsl)
+- [invoice service](src/main/dsl/invoice-service/workspace.dsl)
 - [order service](src/main/dsl/order-service/workspace.dsl)
 
 All people and software systems used across the enterprise are defined in a [system catalog workspace](src/main/dsl/system-catalog.dsl),
