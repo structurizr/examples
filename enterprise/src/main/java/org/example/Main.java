@@ -60,7 +60,7 @@ public class Main {
 
         Files.writeString(new File(structurizrDataDirectory, "structurizr.properties").toPath(), "structurizr.apiKey=" + ADMIN_API_KEY_BCRYPT);
 
-        GenericContainer container = new GenericContainer(DockerImageName.parse("structurizr/onpremises:preview"))
+        GenericContainer container = new GenericContainer(DockerImageName.parse("structurizr/onpremises:latest"))
                 .withExposedPorts(8080)
                 .withFileSystemBind(structurizrDataDirectory.getAbsolutePath(), "/usr/local/structurizr", BindMode.READ_WRITE)
                 .waitingFor(Wait.forHttp("/"));
