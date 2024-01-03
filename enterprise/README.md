@@ -2,9 +2,9 @@
 
 This Java project contains a number of examples of how to approach enterprise-wide modelling with the Structurizr tooling.
 
-- Example 1: Enterprise modelling with the Structurizr DSL
-- Example 2: Backstage as a system catalog + Structurizr DSL
-- Example 3: Backstage to Structurizr
+- [Example 1: Enterprise modelling with the Structurizr DSL](#example-1)
+- [Example 2: Backstage as a system catalog + system modelling with the Structurizr DSL](#example-2)
+- [Example 3: Import Backstage to Structurizr](#example-3)
 
 ## Example 1
 
@@ -23,11 +23,11 @@ software system via the `!extend` keyword.
 
 The code in the [Example1 class](src/main/java/org/example/Example1.java):
 
-1. Starts up a Structurizr on-premises installation (via Docker)
+1. Starts up a Structurizr on-premises installation (via Docker).
 2. Loads the 3 example workspaces (above).
-3. Automatically generates a system landscape diagram by extracting relationships from the 3 example workspaces.
+3. Automatically generates a system landscape diagram.
 
-To run this (you will need Java 17 and Docker installed):
+To run this (you will need Java 17+ and Docker installed):
 
 ```
 ./gradlew run -PmainClass=org.example.Example1
@@ -35,19 +35,46 @@ To run this (you will need Java 17 and Docker installed):
 
 Here are the resulting diagrams:
 
-| Customer service system context                                                           | Invoice service system context                                                        | Order service system context                                                     | System landscape (generated)                               |
-|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------|
-| [![Customer service](images/example1/customer-service.png)](images/customer-service.png)  | [![Invoice service](images/example1/invoice-service.png)](images/invoice-service.png) | [![Order service](images/example1/order-service.png)](images/order-service.png)  | [![Landscape](images/example1/landscape.png)](images/landscape.png) |
+| Customer service system context                                                                   | Invoice service system context                                                                 | Order service system context                                                             | System landscape (generated)                                                 |
+|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| [![Customer service](images/example1/customer-service.png)](images/example1/customer-service.png) | [![Invoice service](images/example1/invoice-service.png)](images/example1/invoice-service.png) | [![Order service](images/example1/order-service.png)](images/example1/order-service.png) | [![Landscape](images/example1/landscape.png)](images/example1/landscape.png) |
 
 ## Example 2
 
-- https://engineering.atspotify.com/2022/07/software-visualization-challenge-accepted/
-- https://backstage.io/docs/features/software-catalog/system-model/
-- https://demo.backstage.io
+This example uses Backstage as a system catalog only (i.e. it ignores components, resources, etc),
+providing a way for individual teams to describe their software system via the Structurizr DSL.
+
+The code in the [Example2 class](src/main/java/org/example/Example2.java):
+
+1. Starts up a Structurizr on-premises installation (via Docker).
+2. Downloads the set of entities defined in the [Backstage demo instance](https://demo.backstage.io) (via https://demo.backstage.io/api/catalog/entities).
+3. Creates a Structurizr workspace containing all Backstage systems (entity kind `System`), and exports this to [system-catalog.json](src/main/resources/example2/system-catalog.json).
+4. Loads [an example Structurizr DSL workspace](src/main/resources/example2/podcast/workspace.dsl), which extends the system catalog and adds containers for the `podcast` system.
+5. Automatically generates a system landscape diagram.
+
+To run this (you will need Java 17+ and Docker installed):
+
+```
+./gradlew run -PmainClass=org.example.Example2
+```
 
 ## Example 3
 
-- https://engineering.atspotify.com/2022/07/software-visualization-challenge-accepted/
-- https://backstage.io/docs/features/software-catalog/system-model/
-- https://demo.backstage.io
+This example imports a Backstage catalog into a Structurizr on-premises installation, providing an alternative way to visualise/navigate the data.
+
+The code in the [Example3 class](src/main/java/org/example/Example3.java):
+
+1. Starts up a Structurizr on-premises installation (via Docker).
+2. Downloads the set of entities defined in the [Backstage demo instance](https://demo.backstage.io) (via https://demo.backstage.io/api/catalog/entities).
+3. Creates a Structurizr workspace containing all Backstage systems (entity kind `System`).
+4. Creates one Structurizr workspace per Backstage system that includes:
+   1. Backstage components (entity kind `Component` and `Resource`) defined as Structurizr containers.
+   2. Relationships from containers inside the software system, and from containers to other software systems.
+6. Automatically generates a system landscape diagram.
+
+To run this (you will need Java 17+ and Docker installed):
+
+```
+./gradlew run -PmainClass=org.example.Example3
+```
 
