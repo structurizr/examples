@@ -30,14 +30,14 @@ The code in the [Example1 class](src/main/java/org/example/Example1.java):
 To run this (you will need Java 17 and Docker installed):
 
 ```
-./gradlew run
+./gradlew run -PmainClass=org.example.Example1
 ```
 
 Here are the resulting diagrams:
 
-| Customer service system context                                                 | Invoice service system context                                               | Order service system context                                           | System landscape (generated)                               |
-|---------------------------------------------------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------|------------------------------------------------------------|
-| [![Customer service](images/customer-service.png)](images/customer-service.png) | [![Invoice service](images/invoice-service.png)](images/invoice-service.png) | [![Order service](images/order-service.png)](images/order-service.png) | [![Landscape](images/landscape.png)](images/landscape.png) |
+| Customer service system context                                                           | Invoice service system context                                                        | Order service system context                                                     | System landscape (generated)                               |
+|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------|
+| [![Customer service](images/example1/customer-service.png)](images/customer-service.png)  | [![Invoice service](images/example1/invoice-service.png)](images/invoice-service.png) | [![Order service](images/example1/order-service.png)](images/order-service.png)  | [![Landscape](images/example1/landscape.png)](images/landscape.png) |
 
 ## Example 2
 

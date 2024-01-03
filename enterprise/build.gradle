@@ -24,4 +24,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = "org.example.Main"
+mainClassName=mainClass
