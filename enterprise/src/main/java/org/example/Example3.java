@@ -72,7 +72,7 @@ public class Example3 extends AbstractBackstageExample {
 
         // find components
         for (Entity entity : entities) {
-            if (BACKSTAGE_ENTITY_KIND_COMPONENT.equals(entity.kind)) {
+            if (BACKSTAGE_ENTITY_KIND_COMPONENT.equals(entity.kind) || BACKSTAGE_ENTITY_KIND_RESOURCE.equals(entity.kind)) {
                 if (!StringUtils.isNullOrEmpty(entity.spec.system)) {
                     String softwareSystemName = entity.spec.system;
                     Workspace workspace = workspacesByName.get(softwareSystemName);
@@ -84,24 +84,6 @@ public class Example3 extends AbstractBackstageExample {
                         container.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, dslIdentifier);
                         container.addProperty(BACKSTAGE_REF_PROPERTY_NAME, toBackstageRef(entity));
                         container.addTags(entity.metadata.tags);
-                    }
-                }
-            }
-
-            if (BACKSTAGE_ENTITY_KIND_RESOURCE.equals(entity.kind)) {
-                if ("database".equals(entity.spec.type)) {
-                    if (!StringUtils.isNullOrEmpty(entity.spec.system)) {
-                        String softwareSystemName = entity.spec.system;
-                        Workspace workspace = workspacesByName.get(softwareSystemName);
-                        SoftwareSystem softwareSystem = workspace.getModel().getSoftwareSystemWithName(softwareSystemName);
-                        if (softwareSystem != null) {
-                            String dslIdentifier = softwareSystem.getProperties().get(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME) + "." + entity.metadata.name.replaceAll("\\W", "");
-                            Container container = softwareSystem.addContainer(entity.metadata.name);
-                            container.setDescription(entity.metadata.description);
-                            container.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, dslIdentifier);
-                            container.addProperty(BACKSTAGE_REF_PROPERTY_NAME, toBackstageRef(entity));
-                            container.addTags(entity.metadata.tags);
-                        }
                     }
                 }
             }

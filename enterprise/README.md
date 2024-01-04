@@ -62,6 +62,15 @@ To run this (you will need Java 17+ and Docker installed):
 
 This example imports a Backstage catalog into a Structurizr on-premises installation, providing an alternative way to visualise/navigate the data.
 
+Although [Spotify uses an approach based upon the C4 model](https://engineering.atspotify.com/2022/07/software-visualization-challenge-accepted/),
+mapping Backstage entities to the C4 model (and Structurizr) may be problematic for some organisations, depending on
+how they have interpreted the [Backstage system model](https://backstage.io/docs/features/software-catalog/system-model)
+and therefore what they are registering in Backstage. The example code works as follows:
+
+- Backstage system -> Structurizr software system
+- Backstage component -> Structurizr container
+- Backstage resource -> Structurizr container
+
 The code in the [Example3 class](src/main/java/org/example/Example3.java):
 
 1. Starts up a Structurizr on-premises installation (via Docker).
