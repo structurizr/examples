@@ -2,9 +2,10 @@
 
 This Java project contains a number of examples of how to approach enterprise-wide modelling with the Structurizr tooling.
 
-- [Example 1: Enterprise modelling with the Structurizr DSL](#example-1)
-- [Example 2: Backstage as a system catalog + system modelling with the Structurizr DSL](#example-2)
-- [Example 3: Import Backstage to Structurizr](#example-3)
+- [Example 1: Enterprise modelling with the Structurizr DSL, with on-premises installation](#example-1)
+- [Example 2: Enterprise modelling with the Structurizr DSL, without on-premises installation](#example-2)
+- [Example 3: Backstage as a system catalog + system modelling with the Structurizr DSL](#example-3)
+- [Example 4: Import Backstage to Structurizr](#example-4)
 
 ## Example 1
 
@@ -41,10 +42,23 @@ Here are the resulting diagrams:
 
 ## Example 2
 
+This is the same as example 1, except that it doesn't use an on-premises installation as a repository for all workspaces.
+Instead, all DSL files are simply loaded from disk.
+
+To run this (you will need Java 17+ and Docker installed):
+
+```
+./gradlew run -PmainClass=org.example.Example2
+```
+
+The resulting system landscape diagram is the same as example 1 (above).
+
+## Example 3
+
 This example uses Backstage as a system catalog only (i.e. it ignores components, resources, etc),
 providing a way for individual teams to describe their software system via the Structurizr DSL.
 
-The code in the [Example2 class](src/main/java/org/example/Example2.java):
+The code in the [Example3 class](src/main/java/org/example/Example3.java):
 
 1. Starts up a Structurizr on-premises installation (via Docker).
 2. Downloads the set of entities defined in the [Backstage demo instance](https://demo.backstage.io) (via https://demo.backstage.io/api/catalog/entities).
@@ -55,10 +69,10 @@ The code in the [Example2 class](src/main/java/org/example/Example2.java):
 To run this (you will need Java 17+ and Docker installed):
 
 ```
-./gradlew run -PmainClass=org.example.Example2
+./gradlew run -PmainClass=org.example.Example3
 ```
 
-## Example 3
+## Example 4
 
 This example imports a Backstage catalog into a Structurizr on-premises installation, providing an alternative way to visualise/navigate the data.
 
@@ -71,7 +85,7 @@ and therefore what they are registering in Backstage. The example code works as 
 - Backstage component -> Structurizr container
 - Backstage resource -> Structurizr container
 
-The code in the [Example3 class](src/main/java/org/example/Example3.java):
+The code in the [Example4 class](src/main/java/org/example/Example4.java):
 
 1. Starts up a Structurizr on-premises installation (via Docker).
 2. Downloads the set of entities defined in the [Backstage demo instance](https://demo.backstage.io) (via https://demo.backstage.io/api/catalog/entities).
@@ -84,6 +98,6 @@ The code in the [Example3 class](src/main/java/org/example/Example3.java):
 To run this (you will need Java 17+ and Docker installed):
 
 ```
-./gradlew run -PmainClass=org.example.Example3
+./gradlew run -PmainClass=org.example.Example4
 ```
 

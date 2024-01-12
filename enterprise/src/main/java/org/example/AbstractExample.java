@@ -129,7 +129,7 @@ class AbstractExample {
         return workspace.getModel().getSoftwareSystems().stream().filter(ss -> !ss.getContainers().isEmpty()).findFirst().orElse(null);
     }
 
-    private static void findAndCloneRelationships(Workspace source, Workspace destination) {
+    protected static void findAndCloneRelationships(Workspace source, Workspace destination) {
         for (Relationship relationship : source.getModel().getRelationships()) {
             if (isPersonOrSoftwareSystem(relationship.getSource()) && isPersonOrSoftwareSystem(relationship.getDestination())) {
                 cloneRelationshipIfItDoesNotExist(relationship, destination.getModel());

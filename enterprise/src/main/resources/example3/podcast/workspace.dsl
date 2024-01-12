@@ -1,5 +1,8 @@
 workspace extends ../system-catalog.json {
 
+    name "podcast"
+    description "A description of the podcast system"
+
     model {
         !extend podcast {
             webapp = container "Web Application"

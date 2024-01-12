@@ -1,0 +1,129 @@
+{
+  "id" : 0,
+  "name" : "Landscape",
+  "description" : "Description",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIGN1c3RvbWVyID0gcGVyc29uICJDdXN0b21lciIKCiAgICAgICAgb3JkZXJTZXJ2aWNlID0gc29mdHdhcmVTeXN0ZW0gIk9yZGVyIFNlcnZpY2UiCiAgICAgICAgaW52b2ljZVNlcnZpY2UgPSBzb2Z0d2FyZVN5c3RlbSAiSW52b2ljZSBTZXJ2aWNlIgogICAgICAgIGN1c3RvbWVyU2VydmljZSA9IHNvZnR3YXJlU3lzdGVtICJDdXN0b21lciBTZXJ2aWNlIgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIHBlcnNvbgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQogICAgICAgIAp9Cg=="
+  },
+  "configuration" : { },
+  "model" : {
+    "people" : [ {
+      "id" : "1",
+      "tags" : "Element,Person",
+      "properties" : {
+        "structurizr.dsl.identifier" : "customer"
+      },
+      "name" : "Customer",
+      "relationships" : [ {
+        "id" : "6",
+        "tags" : "Relationship,",
+        "sourceId" : "1",
+        "destinationId" : "3",
+        "description" : "Downloads invoices from"
+      }, {
+        "id" : "8",
+        "tags" : "Relationship,",
+        "sourceId" : "1",
+        "destinationId" : "2",
+        "description" : "Makes orders using"
+      } ],
+      "location" : "Unspecified"
+    } ],
+    "softwareSystems" : [ {
+      "id" : "2",
+      "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "orderservice"
+      },
+      "name" : "Order Service",
+      "relationships" : [ {
+        "id" : "7",
+        "tags" : "Relationship,",
+        "sourceId" : "2",
+        "destinationId" : "4",
+        "description" : "Manages customer data using"
+      } ],
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
+      "id" : "3",
+      "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "invoiceservice"
+      },
+      "name" : "Invoice Service",
+      "relationships" : [ {
+        "id" : "5",
+        "tags" : "Relationship,",
+        "sourceId" : "3",
+        "destinationId" : "4",
+        "description" : "Gets customer data from"
+      } ],
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
+      "id" : "4",
+      "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "customerservice"
+      },
+      "name" : "Customer Service",
+      "location" : "Unspecified",
+      "documentation" : { }
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "systemLandscapeViews" : [ {
+      "key" : "Landscape",
+      "order" : 1,
+      "description" : "An automatically generated system landscape view.",
+      "automaticLayout" : {
+        "implementation" : "Dagre",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 600,
+        "edgeSeparation" : 200,
+        "vertices" : false,
+        "applied" : false
+      },
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "5"
+      }, {
+        "id" : "6"
+      }, {
+        "id" : "7"
+      }, {
+        "id" : "8"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : {
+        "elements" : [ {
+          "tag" : "Person",
+          "shape" : "Person"
+        } ]
+      },
+      "terminology" : { }
+    }
+  }
+}
