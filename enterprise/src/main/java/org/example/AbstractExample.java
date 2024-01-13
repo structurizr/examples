@@ -27,6 +27,8 @@ class AbstractExample {
     protected static final String ADMIN_API_KEY_PLAINTEXT = "password";
     protected static final String ADMIN_API_KEY_BCRYPT = "$2a$10$ekjju1h3fC1y2YAln7wqxuJ.q0gBjQoFPX/Wvmzr.L5aIdoqvUIwa";
 
+    private static final String STRUCTURIZR_ONPREMISES_DOCKER_IMAGE = "structurizr/onpremises:2024.01.02";
+
     protected static WorkspaceMetadata SYSTEM_LANDSCAPE_WORKSPACE_METADATA;
 
     protected static void startOnPremisesInstallation() throws Exception {
@@ -36,7 +38,7 @@ class AbstractExample {
         // - with the "admin API key" enabled (set to "password")
 
         File structurizrDataDirectory = Files.createTempDirectory("structurizr").toFile();
-        final GenericContainer container = new GenericContainer(DockerImageName.parse("structurizr/onpremises:latest"))
+        final GenericContainer container = new GenericContainer(DockerImageName.parse(STRUCTURIZR_ONPREMISES_DOCKER_IMAGE))
                 .withExposedPorts(8080)
                 .withFileSystemBind(structurizrDataDirectory.getAbsolutePath(), "/usr/local/structurizr", BindMode.READ_WRITE)
                 .waitingFor(Wait.forHttp("/"));
