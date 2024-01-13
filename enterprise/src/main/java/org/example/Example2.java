@@ -22,15 +22,6 @@ public class Example2 extends AbstractExample {
     public static void main(String[] args) throws Exception {
         loadExampleWorkspaces();
         generateSystemLandscapeWorkspace();
-
-        System.out.println("Structurizr on-premises installation: " + STRUCTURIZR_ONPREMISES_URL);
-        System.out.println("System landscape workspace: " + STRUCTURIZR_ONPREMISES_URL + "/share/1/diagrams#Landscape");
-
-        try {
-            Runtime.getRuntime().exec("open " + STRUCTURIZR_ONPREMISES_URL + "/share/1/diagrams#Landscape");
-        } catch (IOException e) {
-            // ignore
-        }
     }
 
     private static void loadExampleWorkspaces() throws Exception {
