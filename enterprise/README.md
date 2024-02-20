@@ -62,8 +62,8 @@ The code in the [Example3 class](src/main/java/org/example/Example3.java):
 
 1. Starts up a Structurizr on-premises installation (via Docker).
 2. Downloads the set of entities defined in the [Backstage demo instance](https://demo.backstage.io) (via https://demo.backstage.io/api/catalog/entities).
-3. Creates a Structurizr workspace containing all Backstage systems (entity kind `System`), and exports this to [system-catalog.json](src/main/resources/example2/system-catalog.json).
-4. Loads [an example Structurizr DSL workspace](src/main/resources/example2/podcast/workspace.dsl), which extends the system catalog and adds containers for the `podcast` system.
+3. Creates a Structurizr workspace containing all Backstage systems (entity kind `System`), and exports this to [system-catalog.json](src/main/resources/example3/system-catalog.json).
+4. Loads [an example Structurizr DSL workspace](src/main/resources/example3/podcast/workspace.dsl), which extends the system catalog and adds containers for the `podcast` system.
 5. Automatically generates a system landscape diagram.
 
 To run this (you will need Java 17+ and Docker installed):
