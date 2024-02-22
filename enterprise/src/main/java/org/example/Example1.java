@@ -31,6 +31,7 @@ public class Example1 extends AbstractExample {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/main/resources/example1/customer-service/workspace.dsl"));
         Workspace workspace1 = parser.getWorkspace();
+        workspace1.trim();
         WorkspaceApiClient workspaceApiClient = createWorkspaceApiClient(workspaceMetadata1);
         workspaceApiClient.setWorkspaceArchiveLocation(null);
         workspaceApiClient.putWorkspace(workspaceMetadata1.getId(), workspace1);
@@ -40,6 +41,7 @@ public class Example1 extends AbstractExample {
         parser = new StructurizrDslParser();
         parser.parse(new File("src/main/resources/example1/invoice-service/workspace.dsl"));
         Workspace workspace2 = parser.getWorkspace();
+        workspace2.trim();
         workspaceApiClient = createWorkspaceApiClient(workspaceMetadata2);
         workspaceApiClient.setWorkspaceArchiveLocation(null);
         workspaceApiClient.putWorkspace(workspaceMetadata2.getId(), workspace2);
@@ -49,6 +51,7 @@ public class Example1 extends AbstractExample {
         parser = new StructurizrDslParser();
         parser.parse(new File("src/main/resources/example1/order-service/workspace.dsl"));
         Workspace workspace3 = parser.getWorkspace();
+        workspace3.trim();
         workspaceApiClient = createWorkspaceApiClient(workspaceMetadata3);
         workspaceApiClient.setWorkspaceArchiveLocation(null);
         workspaceApiClient.putWorkspace(workspaceMetadata3.getId(), workspace3);

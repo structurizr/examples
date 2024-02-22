@@ -149,6 +149,7 @@ public class Example4 extends AbstractBackstageExample {
             containerView.addDefaultElements();
             containerView.enableAutomaticLayout();
 
+            workspace.trim();
             createWorkspaceApiClient(workspaceMetadata).putWorkspace(workspaceMetadata.getId(), workspace);
         }
     }

@@ -25,6 +25,7 @@ public class Example3 extends AbstractBackstageExample {
         StructurizrDslParser dslParser = new StructurizrDslParser();
         dslParser.parse(new File("src/main/resources/example3/podcast/workspace.dsl"));
         Workspace podcastWorkspace = dslParser.getWorkspace();
+        podcastWorkspace.trim();
         WorkspaceMetadata podcastWorkspaceMetadata = createAdminApiClient().createWorkspace();
         createWorkspaceApiClient(podcastWorkspaceMetadata).putWorkspace(podcastWorkspaceMetadata.getId(), podcastWorkspace);
 
