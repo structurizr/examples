@@ -27,7 +27,7 @@ class AbstractExample {
     protected static final String ADMIN_API_KEY_PLAINTEXT = "password";
     protected static final String ADMIN_API_KEY_BCRYPT = "$2a$10$ekjju1h3fC1y2YAln7wqxuJ.q0gBjQoFPX/Wvmzr.L5aIdoqvUIwa";
 
-    private static final String STRUCTURIZR_ONPREMISES_DOCKER_IMAGE = "structurizr/onpremises:2024.01.02";
+    private static final String STRUCTURIZR_ONPREMISES_DOCKER_IMAGE = "structurizr/onpremises:2024.02.22";
 
     protected static WorkspaceMetadata SYSTEM_LANDSCAPE_WORKSPACE_METADATA;
 
