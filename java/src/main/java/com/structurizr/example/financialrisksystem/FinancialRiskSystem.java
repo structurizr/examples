@@ -1,7 +1,7 @@
 package com.structurizr.example.financialrisksystem;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.importer.documentation.DefaultDocumentationImporter;
 import com.structurizr.importer.documentation.DefaultImageImporter;
 import com.structurizr.model.*;
@@ -85,7 +85,7 @@ public class FinancialRiskSystem {
         DefaultImageImporter imageImporter = new DefaultImageImporter();
         imageImporter.importDocumentation(financialRiskSystem, documentationRoot);
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 

@@ -1,7 +1,7 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
@@ -47,7 +47,7 @@ public class FilteredViews {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#91a437").shape(Shape.RoundedBox);
         styles.addElementStyle(Tags.PERSON).background("#6a7b15").shape(Shape.Person);
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 

@@ -1,7 +1,7 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -91,7 +91,7 @@ public class MicroservicesExample {
         styles.addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
         styles.addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
 
-        StructurizrClient client = new StructurizrClient("key", "secret");
+        WorkspaceApiClient client = new WorkspaceApiClient("key", "secret");
         client.putWorkspace(4241, workspace);
     }
 

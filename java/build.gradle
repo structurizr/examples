@@ -5,8 +5,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.structurizr:structurizr-client:1.20.1'
-    compile 'com.structurizr:structurizr-import:1.2.1'
+    implementation 'com.structurizr:structurizr-client:2.0.0'
+    implementation 'com.structurizr:structurizr-import:2.0.0'
 }
 
 compileJava.options.encoding = 'UTF-8'

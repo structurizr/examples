@@ -1,7 +1,7 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -72,7 +72,7 @@ public class AmazonWebServicesExample {
 
         views.getConfiguration().setThemes("https://raw.githubusercontent.com/structurizr/themes/master/amazon-web-services/theme.json");
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 

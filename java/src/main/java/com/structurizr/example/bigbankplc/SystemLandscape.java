@@ -1,6 +1,6 @@
 package com.structurizr.example.bigbankplc;
 
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -28,7 +28,7 @@ public final class SystemLandscape extends BigBankPlc {
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#999999").color("#ffffff");
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 

@@ -1,7 +1,7 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
@@ -45,7 +45,7 @@ public class GettingStarted {
         styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
 
         // upload to structurizr.com (you'll need your own workspace ID, API key and API secret)
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 

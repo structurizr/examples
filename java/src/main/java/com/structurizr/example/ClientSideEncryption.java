@@ -1,7 +1,7 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.encryption.AesEncryptionStrategy;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
@@ -41,7 +41,7 @@ public class ClientSideEncryption {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#d34407").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#f86628").color("#ffffff").shape(Shape.Person);
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.setEncryptionStrategy(new AesEncryptionStrategy("password"));
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }

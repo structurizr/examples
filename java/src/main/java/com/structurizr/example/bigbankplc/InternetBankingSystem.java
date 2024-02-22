@@ -1,6 +1,6 @@
 package com.structurizr.example.bigbankplc;
 
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.model.*;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.MapUtils;
@@ -116,7 +116,7 @@ public final class InternetBankingSystem extends BigBankPlc {
 
         // views/diagrams
         SystemContextView systemContextView = views.createSystemContextView(internetBankingSystem, "SystemContext", "The system context diagram for the Internet Banking System.");
-        systemContextView.setEnterpriseBoundaryVisible(false);
+        systemContextView.addProperty("structurizr.groups", "false");
         systemContextView.addNearestNeighbours(internetBankingSystem);
         systemContextView.setPaperSize(PaperSize.A5_Landscape);
 
@@ -205,7 +205,7 @@ public final class InternetBankingSystem extends BigBankPlc {
         styles.addElementStyle(FAILOVER_TAG).opacity(25);
         styles.addRelationshipStyle(FAILOVER_TAG).opacity(25).position(70);
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 

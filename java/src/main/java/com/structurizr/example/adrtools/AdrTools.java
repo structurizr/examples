@@ -1,7 +1,7 @@
 package com.structurizr.example.adrtools;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.api.WorkspaceApiClient;
 import com.structurizr.importer.documentation.AdrToolsDecisionImporter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
@@ -55,7 +55,7 @@ public class AdrTools {
         styles.addElementStyle(Tags.CONTAINER).background("#6DBFBF");
         styles.addElementStyle(FILE_SYSTEM_TAG).shape(Shape.Folder);
 
-        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        WorkspaceApiClient structurizrClient = new WorkspaceApiClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
