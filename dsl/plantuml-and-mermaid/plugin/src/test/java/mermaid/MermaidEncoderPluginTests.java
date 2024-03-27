@@ -41,11 +41,54 @@ public class MermaidEncoderPluginTests {
 
         assertEquals("## Context\n" +
                 "\n" +
-                "![](https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuU3RhcnQgLS0+IFN0b3BcbiIsICJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsICJzZWN1cml0eUxldmVsIjogImxvb3NlIn19)\n", markdown.getContent());
+                "![](https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==)\n", markdown.getContent());
 
         assertEquals("== Context\n" +
                 "\n" +
-                "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuU3RhcnQgLS0+IFN0b3BcbiIsICJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCIsICJzZWN1cml0eUxldmVsIjogImxvb3NlIn19[]\n", asciidoc.getContent());
+                "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==[]\n", asciidoc.getContent());
     }
 
+    @Test
+    public void test_asciidoc_diagram_run() {
+       Workspace workspace = new Workspace("Name", "Description");
+
+       Section asciidoc = new Section(Format.AsciiDoc, "== Context\n" +
+               "\n" +
+               "[mermaid]\n" +
+               "....\n" +
+               "flowchart TD\n" +
+               "    Start --> Stop\n" +
+               "....");
+       workspace.getDocumentation().addSection(asciidoc);
+
+       Map<String,String> parameters = new HashMap<>();
+       StructurizrDslPluginContext context = new StructurizrDslPluginContext(null, workspace, parameters);
+       new MermaidEncoderPlugin().run(context);
+
+       assertEquals("== Context\n" +
+               "\n" +
+               "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==[]\n", asciidoc.getContent());
+   }
+
+   @Test
+   public void test_asciidoc_diagram_with_parameters_run() {
+       Workspace workspace = new Workspace("Name", "Description");
+
+       Section asciidoc = new Section(Format.AsciiDoc, "== Context\n" +
+               "\n" +
+               "[mermaid, target=output-file-name, format=output-format]\n" +
+               "....\n" +
+               "flowchart TD\n" +
+               "    Start --> Stop\n" +
+               "....");
+       workspace.getDocumentation().addSection(asciidoc);
+
+       Map<String,String> parameters = new HashMap<>();
+       StructurizrDslPluginContext context = new StructurizrDslPluginContext(null, workspace, parameters);
+       new MermaidEncoderPlugin().run(context);
+
+       assertEquals("== Context\n" +
+               "\n" +
+               "image::https://mermaid.ink/svg/eyAiY29kZSI6ImZsb3djaGFydCBURFxuICAgIFN0YXJ0IC0tPiBTdG9wXG4iLCAibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQiLCAic2VjdXJpdHlMZXZlbCI6ICJsb29zZSJ9fQ==[]\n", asciidoc.getContent());
+   }
 }

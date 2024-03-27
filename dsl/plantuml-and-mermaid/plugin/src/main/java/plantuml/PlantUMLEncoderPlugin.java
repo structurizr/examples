@@ -48,11 +48,11 @@ public class PlantUMLEncoderPlugin implements StructurizrDslPlugin {
         String[] lines = content.split("\\r?\\n");
         StringBuilder rawPlantUML = null;
         for (String line : lines) {
-            line = line.trim();
+            line = line;
 
-            if (line.equals("```plantuml")) {
+            if (line.trim().equals("```plantuml")) {
                 rawPlantUML = new StringBuilder();
-            } else if (rawPlantUML != null && line.equals("```")) {
+            } else if (rawPlantUML != null && line.trim().equals("```")) {
                 String encodedPlantUML = rawPlantUML.toString();
 
                 try {

@@ -7,6 +7,8 @@ import com.structurizr.dsl.StructurizrDslPluginContext;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,32 +51,64 @@ public class MermaidEncoderPlugin implements StructurizrDslPlugin {
         StringBuilder buf = new StringBuilder();
         String[] lines = content.split("\\r?\\n");
         StringBuilder rawMermaid = null;
-        for (String line : lines) {
-            line = line.trim();
+        Boolean digramStarts = false;
+        Iterator<String> iterator = Arrays.asList(lines).iterator();
+        while (iterator.hasNext()) {
+            String line = iterator.next();
+            if (line.trim().equals("```mermaid")) {
+                line = getDiagramFromMDSyntax(iterator, format, url);
+            }
+            if (line.trim().startsWith("[mermaid") && line.endsWith("]")) {
+                line = getDiagramFromAdocSyntax(line, iterator, format, url);
+            }
+            buf.append(line);
+            buf.append(System.lineSeparator());
+        }
+        return buf.toString();
+    }
 
-            if (line.equals("```mermaid")) {
-                rawMermaid = new StringBuilder();
-            } else if (rawMermaid != null && line.equals("```")) {
-                String encodedMermaid = new MermaidEncoder().encode(rawMermaid.toString());
-
-                if (format == Format.AsciiDoc) {
-                    buf.append(String.format(ASCIIDOC_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid));
-                } else {
-                    buf.append(String.format(MARKDOWN_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid));
-                }
-
-                buf.append(System.lineSeparator());
-                rawMermaid = null;
-            } else if (rawMermaid != null) {
+    private String getDiagramFromAdocSyntax(String startLine, Iterator<String> iterator, Format format, String url)
+    {
+        StringBuilder rawMermaid = new StringBuilder();
+        String line = iterator.next();
+        if (!line.trim().equals("....")) {
+            return startLine + '\n' + line;
+        }
+        while (iterator.hasNext()) {
+            line = iterator.next();
+            if (line.trim().equals("....")) {
+                break;
+            } else {
                 rawMermaid.append(line);
                 rawMermaid.append(System.lineSeparator());
-            } else {
-                buf.append(line);
-                buf.append(System.lineSeparator());
             }
         }
+        String encodedMermaid = new MermaidEncoder().encode(rawMermaid.toString());
 
-        return buf.toString();
+        if (format == Format.AsciiDoc) {
+            return String.format(ASCIIDOC_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
+        }
+        return String.format(MARKDOWN_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
+    }
+
+    private String getDiagramFromMDSyntax(Iterator<String> iterator, Format format, String url)
+    {
+        StringBuilder rawMermaid = new StringBuilder();
+        while (iterator.hasNext()) {
+            String line = iterator.next();
+            if (line.trim().equals("```")) {
+                break;
+            } else {
+                rawMermaid.append(line);
+                rawMermaid.append(System.lineSeparator());
+            }
+        }
+        String encodedMermaid = new MermaidEncoder().encode(rawMermaid.toString());
+
+        if (format == Format.AsciiDoc) {
+            return String.format(ASCIIDOC_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
+        }
+        return String.format(MARKDOWN_IMAGE_TEMPLATE, url, MERMAID_FORMAT, encodedMermaid);
     }
 
 }
