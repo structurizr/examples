@@ -1,42 +1,49 @@
 workspace "Amazon Web Services Example" "An example AWS deployment architecture." {
 
+    !identifiers hierarchical
+
     model {
-        springPetClinic = softwaresystem "Spring PetClinic" "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets." {
-            webApplication = container "Web Application" "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets." "Java and Spring Boot" {
+        x = softwaresystem "X" {
+            wa = container "Web Application" {
+                technology "Java and Spring Boot"
                 tags "Application"
             }
-            database = container "Database" "Stores information regarding the veterinarians, the clients, and their pets." "Relational database schema" {
+            db = container "Database Schema" {
                 tags "Database"
             }
+
+            wa -> db "Reads from and writes to" "MySQL Protocol/SSL"
         }
 
-        webApplication -> database "Reads from and writes to" "MySQL Protocol/SSL"
-
         live = deploymentEnvironment "Live" {
-
             deploymentNode "Amazon Web Services" {
                 tags "Amazon Web Services - Cloud"
 
                 region = deploymentNode "US-East-1" {
                     tags "Amazon Web Services - Region"
 
-                    route53 = infrastructureNode "Route 53" {
-                        description "Highly available and scalable cloud DNS service."
+                    dns = infrastructureNode "DNS router" {
+                        technology "Route 53"
+                        description "Routes incoming requests based upon domain name."
                         tags "Amazon Web Services - Route 53"
                     }
 
-                    elb = infrastructureNode "Elastic Load Balancer" {
+                    lb = infrastructureNode "Load Balancer" {
+                        technology "Elastic Load Balancer"
                         description "Automatically distributes incoming application traffic."
                         tags "Amazon Web Services - Elastic Load Balancing"
+                        dns -> this "Forwards requests to" "HTTPS"
                     }
 
                     deploymentNode "Autoscaling group" {
                         tags "Amazon Web Services - Auto Scaling"
 
-                        deploymentNode "Amazon EC2" {
+                        deploymentNode "Amazon EC2 - Ubuntu server" {
                             tags "Amazon Web Services - EC2"
 
-                            webApplicationInstance = containerInstance webApplication
+                            webApplicationInstance = containerInstance x.wa {
+                                lb -> this "Forwards requests to" "HTTPS"
+                            }
                         }
                     }
 
@@ -46,29 +53,19 @@ workspace "Amazon Web Services Example" "An example AWS deployment architecture.
                         deploymentNode "MySQL" {
                             tags "Amazon Web Services - RDS MySQL instance"
 
-                            databaseInstance = containerInstance database
+                            databaseInstance = containerInstance x.db
                         }
                     }
 
                 }
             }
-
-            route53 -> elb "Forwards requests to" "HTTPS"
-            elb -> webApplicationInstance "Forwards requests to" "HTTPS"
         }
     }
 
     views {
-        deployment springPetClinic "Live" "AmazonWebServicesDeployment" {
+        deployment x live "AmazonWebServicesDeployment" {
             include *
             autolayout lr
-
-            animation {
-                route53
-                elb
-                webApplicationInstance
-                databaseInstance
-            }
         }
 
         styles {
