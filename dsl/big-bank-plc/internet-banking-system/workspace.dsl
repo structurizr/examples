@@ -94,7 +94,9 @@ workspace extends ../model.dsl {
                 }
                 deploymentNode "bigbank-db02" "" "Ubuntu 16.04 LTS" "Failover" {
                     secondaryDatabaseServer = deploymentNode "Oracle - Secondary" "" "Oracle 12c" "Failover" {
-                        liveSecondaryDatabaseInstance = containerInstance database "Failover"
+                        liveSecondaryDatabaseInstance = containerInstance database {
+                            tag "Failover"
+                        }
                     }
                 }
                 deploymentNode "bigbank-prod001" "" "" "" {
