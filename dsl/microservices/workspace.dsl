@@ -3,100 +3,135 @@ workspace {
     !identifiers hierarchical
     
     model {
+        archetypes {
+            externalSoftwareSystem = softwareSystem {
+                tag "External"
+            }
+            microservice = group
+            application = container {
+                technology "Java and Spring Boot"
+            }
+            api = application {
+                tag "API"
+            }
+            datastore = container {
+                technology "MySQL"                
+                tag "Datastore"
+            }
+        }
+        
         user = person "User"
-    
-        softwareSystem = softwareSystem "Software System"{
+        
+        softwareSystemB = externalSoftwareSystem "Software System B"
+        softwareSystemC = externalSoftwareSystem "Software System C"
 
-            webapp = container "Web Application"
+        softwareSystemA = softwareSystem "Software System A" {
 
-            service1 = group "Service 1" {
-                service1Api = container "Service 1 API" {
-                    tags "Service 1" "Service API"
+            nginx = container "Web Server" {
+                description "Serves HTML, CSS, JavaScript, etc"
+                technology "Nginx"
+                tag "Nginx"
+            }
+            spa = container "UI" {
+                technology "JavaScript and React"
+                tag "Single Page Application"
+            }
+
+            service1 = microservice "Service 1" {
+                service1Api = api "Service 1 API" {
+                    tags "Service 1"
                 }
-                container "Service 1 Database" {
-                    tags "Service 1" "Database"
-                    service1Api -> this "Reads from and writes to"
+                datastore "Service 1 Database Schema" {
+                    tags "Service 1"
+                    service1Api -> this
                 }
             }
 
-            service2 = group "Service 2" {
-                service2Api = container "Service 2 API" {
-                    tags "Service 2" "Service API"
+            service2 = microservice "Service 2" {
+                service2Api = api "Service 2 API" {
+                    tags "Service 2"
                 }
-                container "Service 2 Database" {
-                    tags "Service 2" "Database"
-                    service2Api -> this "Reads from and writes to"
+                datastore "Service 2 Database Schema" {
+                    tags "Service 2"
+                    service2Api -> this
                 }
             }
 
-            service3 = group "Service 3" {
-                service3Api = container "Service 3 API" {
-                    tags "Service 3" "Service API"
+            service3 = microservice "Service 3" {
+                service3Api = api "Service 3 API" {
+                    tags "Service 3"
                 }
-                container "Service 3 Database" {
-                    tags "Service 3" "Database"
-                    service3Api -> this "Reads from and writes to"
+                datastore "Service 3 Database" {
+                    tags "Service 3"
+                    service3Api -> this
                 }
                 
             }
 
-            service4 = group "Service 4" {
-                service4Api = container "Service 4 API" {
-                    tags "Service 4" "Service API"
+            service4 = microservice "Service 4" {
+                service4Api = api "Service 4 API" {
+                    tags "Service 4"
                 }
-                container "Service 4 Database" {
-                    tags "Service 4" "Database"
-                    service4Api -> this "Reads from and writes to"
-                }
-            }
-
-            service5 = group "Service 5" {
-                service5Api = container "Service 5 API" {
-                    tags "Service 5" "Service API"
-                }
-                container "Service 5 Database" {
-                    tags "Service 5" "Database"
-                    service5Api -> this "Reads from and writes to"
+                datastore "Service 4 Database Schema" {
+                    tags "Service 4"
+                    service4Api -> this
                 }
             }
 
-            service6 = group "Service 6" {
-                service6Api = container "Service 6 API" {
-                    tags "Service 6" "Service API"
+            service5 = microservice "Service 5" {
+                service5Api = api "Service 5 API" {
+                    tags "Service 5"
+                    -> softwareSystemB
                 }
-                container "Service 6 Database" {
-                    tags "Service 6" "Database"
-                    service6Api -> this "Reads from and writes to"
+                datastore "Service 5 Database Schema" {
+                    tags "Service 5"
+                    service5Api -> this
                 }
             }
 
-            service7 = group "Service 7" {
-                service7Api = container "Service 7 API" {
+            service6 = microservice "Service 6" {
+                service6Api = api "Service 6 API" {
+                    tags "Service 6"
+                    -> softwareSystemC
+                }
+                datastore "Service 6 Database Schema" {
+                    tags "Service 6"
+                    service6Api -> this
+                }
+            }
+
+            service7 = microservice "Service 7" {
+                service7Api = api "Service 7 API" {
                     tags "Service 7" "Service API"
                 }
-                container "Service 7 Database" {
-                    tags "Service 7" "Database"
-                    service7Api -> this "Reads from and writes to"
+                datastore "Service 7 Database Schema" {
+                    tags "Service 7"
+                    service7Api -> this
                 }
             }
 
-            service8 = group "Service 8" {
-                service8Api = container "Service 8 API" {
-                    tags "Service 8" "Service API"
+            service8 = microservice "Service 8" {
+                service8Api = api "Service 8 API" {
+                    tags "Service 8"
                 }
-                container "Service 8 Database" {
-                    tags "Service 8" "Database"
-                    service8Api -> this "Reads from and writes to"
+                datastore "Service 8 Database Schema" {
+                    tags "Service 8"
+                    service8Api -> this
                 }
             }
 
-            user -> webapp
-            webapp -> service1Api
+            user -> nginx "Requests UI from (using web browser)"
+            nginx -> spa "Delivers"
+            user -> spa "Uses"
+            spa -> service1Api
+            spa -> service2Api
+            spa -> service3Api
+            spa -> service4Api
+            spa -> service5Api
             service1Api -> service2Api
             service1Api -> service3Api
             service2Api -> service4Api
             service2Api -> service5Api
-            webapp -> service3Api
             service3Api -> service4Api
             service3Api -> service7Api
             service4Api -> service6Api
@@ -106,59 +141,80 @@ workspace {
     }
     
     views {
-        container softwareSystem "Containers_All" {
+        container softwareSystemA "Containers_All" {
             include *
             autolayout
         }
 
-        container softwareSystem "Containers_Service1" {
-            include ->softwareSystem.service1->
+        container softwareSystemA "Containers_Service1" {
+            include ->softwareSystemA.service1->
             autolayout
         }
 
-        container softwareSystem "Containers_Service2" {
-            include ->softwareSystem.service2->
+        container softwareSystemA "Containers_Service2" {
+            include ->softwareSystemA.service2->
             autolayout
         }
 
-        container softwareSystem "Containers_Service3" {
-            include ->softwareSystem.service3->
+        container softwareSystemA "Containers_Service3" {
+            include ->softwareSystemA.service3->
+            autolayout
+        }
+
+        container softwareSystemA "Containers_Service4" {
+            include ->softwareSystemA.service4->
+            autolayout
+        }
+
+        container softwareSystemA "Containers_Service5" {
+            include ->softwareSystemA.service5->
+            autolayout
+        }
+
+        container softwareSystemA "Containers_Service6" {
+            include ->softwareSystemA.service6->
+            autolayout
+        }
+
+        container softwareSystemA "Containers_Service7" {
+            include ->softwareSystemA.service7->
+            autolayout
+        }
+
+        container softwareSystemA "Containers_Service8" {
+            include ->softwareSystemA.service8->
             autolayout
         }
 
         styles {
             element "Person" {
                 shape Person
+                background #08427b
+                colour #ffffff
             }
-            element "Service API" {
+            element "Software System" {
+                background #1168bd
+                color #ffffff
+            }
+            element "External" {
+                background #999999
+                color #ffffff
+            }
+            element "Container" {
+                background #438dd5
+                colour #ffffff
+            }
+            element "Nginx" {
+                shape folder
+            }
+            element "Single Page Application" {
+                shape webbrowser
+            }
+            element "API" {
                 shape hexagon
             }
-            element "Database" {
+            element "Datastore" {
                 shape cylinder
-            }
-            element "Service 1" {
-                background #91F0AE
-            }
-            element "Service 2" {
-                background #EDF08C
-            }
-            element "Service 3" {
-                background #8CD0F0
-            }
-            element "Service 4" {
-                background #F08CA4
-            }
-            element "Service 5" {
-                background #FFAC33
-            }
-            element "Service 6" {
-                background #DD8BFE
-            }
-            element "Service 7" {
-                background #89ACFF
-            }
-            element "Service 8" {
-                background #FDA9F4
             }
             
         }
