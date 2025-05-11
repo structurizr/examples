@@ -8,10 +8,8 @@ workspace {
                 tag "External"
             }
             microservice = group
-            application = container {
+            api = container {
                 technology "Java and Spring Boot"
-            }
-            api = application {
                 tag "API"
             }
             datastore = container {
@@ -30,7 +28,7 @@ workspace {
             nginx = container "Web Server" {
                 description "Serves HTML, CSS, JavaScript, etc"
                 technology "Nginx"
-                tag "Nginx"
+                tag "Web Server"
             }
             spa = container "UI" {
                 technology "JavaScript and React"
@@ -38,84 +36,62 @@ workspace {
             }
 
             service1 = microservice "Service 1" {
-                service1Api = api "Service 1 API" {
-                    tags "Service 1"
-                }
+                service1Api = api "Service 1 API"
                 datastore "Service 1 Database Schema" {
-                    tags "Service 1"
                     service1Api -> this
                 }
             }
 
             service2 = microservice "Service 2" {
-                service2Api = api "Service 2 API" {
-                    tags "Service 2"
-                }
+                service2Api = api "Service 2 API"
                 datastore "Service 2 Database Schema" {
-                    tags "Service 2"
                     service2Api -> this
                 }
             }
 
             service3 = microservice "Service 3" {
-                service3Api = api "Service 3 API" {
-                    tags "Service 3"
-                }
+                service3Api = api "Service 3 API"
                 datastore "Service 3 Database" {
-                    tags "Service 3"
                     service3Api -> this
                 }
                 
             }
 
             service4 = microservice "Service 4" {
-                service4Api = api "Service 4 API" {
-                    tags "Service 4"
-                }
+                service4Api = api "Service 4 API"
                 datastore "Service 4 Database Schema" {
-                    tags "Service 4"
                     service4Api -> this
                 }
             }
 
             service5 = microservice "Service 5" {
                 service5Api = api "Service 5 API" {
-                    tags "Service 5"
                     -> softwareSystemB
                 }
                 datastore "Service 5 Database Schema" {
-                    tags "Service 5"
                     service5Api -> this
                 }
             }
 
             service6 = microservice "Service 6" {
                 service6Api = api "Service 6 API" {
-                    tags "Service 6"
                     -> softwareSystemC
                 }
                 datastore "Service 6 Database Schema" {
-                    tags "Service 6"
                     service6Api -> this
                 }
             }
 
             service7 = microservice "Service 7" {
-                service7Api = api "Service 7 API" {
-                    tags "Service 7" "Service API"
-                }
+                service7Api = api "Service 7 API"
                 datastore "Service 7 Database Schema" {
-                    tags "Service 7"
                     service7Api -> this
                 }
             }
 
             service8 = microservice "Service 8" {
-                service8Api = api "Service 8 API" {
-                    tags "Service 8"
-                }
+                service8Api = api "Service 8 API"
                 datastore "Service 8 Database Schema" {
-                    tags "Service 8"
                     service8Api -> this
                 }
             }
@@ -204,7 +180,7 @@ workspace {
                 background #438dd5
                 colour #ffffff
             }
-            element "Nginx" {
+            element "Web Server" {
                 shape folder
             }
             element "Single Page Application" {
